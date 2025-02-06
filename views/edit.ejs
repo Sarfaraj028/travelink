@@ -1,0 +1,15 @@
+<% layout('boilerplate') -%>
+<body>
+    <main  class="w-full h-[80vh] flex flex-col justify-center items-center">
+    <h2  class="text-3xl font-bold text-blue-900 mt-4 ">Edit listing</h2>
+    <form  class="w-96 bg-gray-400 p-5 mt-4" method="post" action="/listings/<%=listing._id%>?_method=PATCH">
+        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="listing[title]>" value="<%=listing.title %>" /> <br>
+        <textarea class="w-full bg-gray-300 p-2 rounded-lg mb-2" rows="5" name="listing[description]" placeholder="Enter description"><%=listing.description %></textarea> <br>
+        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="number" name="listing[price]" value="<%=listing.price %>" /> <br>
+        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="listing[country]" value="<%=listing.country %>" /> <br>
+        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="listing[location]" value="<%=listing.location %>" /> <br>
+        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="listing[image]" placeholder="Enter image url" /> <br>
+        <button class="bg-green-500 px-6 py-2 font-bold rounded-lg">submit</button>
+    </form>
+</main>
+</body>

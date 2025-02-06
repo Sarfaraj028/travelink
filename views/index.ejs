@@ -1,0 +1,27 @@
+<% layout('boilerplate') -%>
+
+    <body>
+        <main class="w-full flex justify-center items-center flex-wrap gap-8 ">
+            <% for(data of data) { %>
+                <div style="width: 350px; border: 1px solid black;" class="rounded-lg">
+                    <a href="/listings/<%=data._id %>">
+                        <abbr title="see details...">
+                            <img src="<%= data.image %>" class="w-full h-56 rounded-t-lg" />
+                        </abbr>
+                    </a>
+                    <div class=" p-3">
+                        <h3><a href="/listings/<%=data._id %>" class="text-lg font-semibold">
+                                <%=data.title %>
+                            </a> |<span class="text-blue-800 font-semibold"> &#8377;<%=data.price.toLocaleString('en-IN') %></span> </h3>
+                        <h3>Location: <%=data.location %> | Country: <%=data.country %>
+                        </h3>
+                        <!-- <p>
+                            <%=data.description %>
+                        </p> -->
+                    </div>
+
+                </div>
+                <% } %>
+        </main>
+
+    </body>

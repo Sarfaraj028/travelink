@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TraveLink Web page</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <%- include('./includes/navbar.ejs') %>
+        <main style="padding: 70px 5% 5%;">
+            <%- body -%>
+        </main>
+    <%- include('./includes/footer.ejs') %>   
+</body>
+
+</html>
