@@ -3,11 +3,11 @@
     <main class="w-full h-[80vh] flex flex-col justify-center items-center">
     <h2 class="text-3xl font-bold text-blue-900 mt-4 ">Add here</h2>
     <form class="w-96 bg-gray-400 p-5 mt-4" method="post" action="/listings">
-        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="title" placeholder="Enter place title" /> <br>
+        <input required class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="title" placeholder="Enter place title" /> <br>
         <textarea class="w-full bg-gray-300 p-2 rounded-lg mb-2" name="description" placeholder="Enter description"></textarea> <br>
-        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="number" name="price" placeholder="Enter price" /> <br>
-        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="country" placeholder="Enter country" /> <br>
-        <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="location" placeholder="Enter place location" /> <br>
+        <input required class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="number" name="price" placeholder="Enter price" /> <br>
+        <input required class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="country" placeholder="Enter country" /> <br>
+        <input required class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="location" placeholder="Enter place location" /> <br>
         <input class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="image" placeholder="Enter image url" /> <br>
         <button class="bg-green-500 px-6 py-2 font-bold rounded-lg">Add</button>
     </form>
