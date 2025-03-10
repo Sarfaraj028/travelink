@@ -6,6 +6,7 @@ import methodOverride from "method-override"
 import ejsMate from "ejs-mate"
 import wrapAsync from "./utils/wrapAsync.js";
 import CustomError from "./utils/CustomError.js";
+import Review from "./models/review.model.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -53,7 +54,7 @@ app.post("/listings", wrapAsync(async (req, res, next) => {
 // specific listing
 app.get("/listings/:id",  wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const data = await Listing.findById(id);
+    const data = await Listing.findById(id).populate("reviews");
     console.log("data fetched", data.title);
     res.render("show.ejs", { data });
 }));
@@ -85,6 +86,21 @@ app.delete("/listings/:id", wrapAsync( async(req, res) =>{
         res.redirect("/listings")
         console.log("deleted");
 }))
+
+// Review post route 
+app.post("/listings/:id/reviews", async(req, res) =>{
+  let listing = await Listing.findById(req.params.id)
+  let newReview = new Review(req.body.review)
+
+  listing.reviews.push(newReview)
+
+  await newReview.save()
+  await listing.save()
+  res.redirect("/listings")
+  console.log("Review Submitted", newReview);
+  console.log(listing._id);
+  
+})
 
 //for all the routs handle error
 app.all("*", (req, res, next) =>{

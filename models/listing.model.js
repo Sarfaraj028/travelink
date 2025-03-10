@@ -1,4 +1,4 @@
-import mongoose, { set } from "mongoose";
+import mongoose, { Schema, set } from "mongoose";
 
 const listingSchema = mongoose.Schema({
     title: {
@@ -25,6 +25,10 @@ const listingSchema = mongoose.Schema({
     country:{
         type: String
     },
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: "Review"
+    }]
 })
 
 const Listing = mongoose.model("Listing", listingSchema)
