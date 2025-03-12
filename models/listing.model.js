@@ -1,4 +1,5 @@
 import mongoose, { Schema, set } from "mongoose";
+import Review from "./review.model.js";
 
 const listingSchema = mongoose.Schema({
     title: {
@@ -29,6 +30,13 @@ const listingSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Review"
     }]
+})
+
+//mongoose middleware to delete all the attached reviews to a particluar listing
+listingSchema.post("findOneAndDelete", async(listing) =>{
+    if(listing) {
+        await Review.deleteMany({ _id: {$in: listing.reviews}})
+    }
 })
 
 const Listing = mongoose.model("Listing", listingSchema)

@@ -35,22 +35,31 @@
                 <div>
                     <label for="comment">Comment</label><br>
                     <textarea name="review[comment]" id="comment" cols="60" rows="5"
-                        class="border-1 border-gray-400 ">Drop your comment</textarea>
+                        class="border-1 border-gray-400 ">Good place</textarea>
                 </div>
                 <button type="submit"
                     class="border-1 border-gray-300 hover:bg-black hover:text-white rounded-md px-2 py-1">Submit</button>
             </form>
         </div>
         <div class="flex justify-center bg-green-100">
+
+            <!-- reviews  -->
         <div class="">
             <h2 class="font-semibold mb-2">All Reviews: </h2>
             <ul class="grid grid-cols-2 gap-2">
                 <% for(review of data.reviews) { %>
                     <li class="bg-gray-200 p-2">
                         <%= review.comment %> , <%= review.rating %> stars
+                        <form method="post" action="/listings/<%=data._id%>/reviews/<%=review._id%>?_method=DELETE">
+                            <button class="mt-2 py-1 px-2 rounded-md bg-black text-white">
+                                Delete
+                            </button>
+                        </form>
                     </li>
                 <% } %>
+                
             </ul>
+            
         </div>
     </div>
     </body>
