@@ -7,12 +7,12 @@ import CustomError from "./utils/CustomError.js";
 import router from "./routes/route.listings.js";
 import reviewsRouter from "./routes/route.reviews.js";
 import cookieParser from "cookie-parser";
+import session from "express-session";
 
 
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
-app.use(cookieParser("secretcode"))
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -25,15 +25,21 @@ app.get("/", (req, res) => {
   res.send("Home page");
 });
 
-//cookie example
-app.get("/verify", (req, res) =>{
-  console.log(req.signedCookies)
-  res.send(`Got the signedCookie`)
-})
+//session example
+app.use(session({
+  secret: "express_secret",
+  resave: false,
+  saveUninitialized: true,
+}))
 
-app.get("/getcookies", (req, res) =>{
-  res.cookie("name", "Sarfaraj" , {signed: true})
-  res.send(`cookie sent`)
+app.get("/get-count", (req, res) =>{
+  if(req.session.count) {
+    req.session.count++
+  }
+  else{
+    req.session.count = 1
+  }
+  res.send(`sent request ${req.session.count} times`)
 })
 
 //all listings routes
