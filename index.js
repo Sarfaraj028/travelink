@@ -32,14 +32,16 @@ app.use(session({
   saveUninitialized: true,
 }))
 
-app.get("/get-count", (req, res) =>{
-  if(req.session.count) {
-    req.session.count++
-  }
-  else{
-    req.session.count = 1
-  }
-  res.send(`sent request ${req.session.count} times`)
+app.get("/register", (req, res) =>{
+  let {name = "Sarfaraj"} = req.query
+  console.log(name);
+  req.session.name = name;
+  res.send(`hello ${name}`)
+})
+
+app.get("/hello", (req, res) =>{
+  console.log(req.session.name);
+  res.send(`hello ${req.session.name}`)
 })
 
 //all listings routes
