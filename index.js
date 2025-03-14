@@ -22,11 +22,6 @@ app.use(methodOverride("_method"))
 app.engine("ejs", ejsMate)
 app.use(express.static("public"))
 
-//Home page
-app.get("/", (req, res) => {
-  res.send("Home page");
-});
-
 app.use(flash())
 
 //session example
@@ -34,30 +29,46 @@ app.use(session({
   secret: "express_secret",
   resave: false,
   saveUninitialized: true,
+  cookie: {
+    expiresIn: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true
+  }
 }))
 
-app.get("/register", (req, res) =>{
-  let {name = ''} = req.query
-  req.session.name = name;
-  if(name === ''){
-    req.flash("error", "Error while Registering!")
-  }
-  else{
-    req.flash("success", "User Registered Successfully!")
-  }
-  res.redirect("/hello")
-})
+//Home page
+app.get("/", (req, res) => {
+  res.send("Home page");
+});
 
-app.get("/hello", (req, res) =>{
+
+app.use((req, res, next) =>{
   res.locals.successMSG = req.flash("success")
   res.locals.errorMSG = req.flash("error")
-  res.render("profile.ejs", {name: req.session.name})
+  next()
 })
+
+// app.get("/register", (req, res) =>{
+//   let {name = ''} = req.query
+//   req.session.name = name;
+//   if(name === ''){
+//     req.flash("error", "Error while Registering!")
+//   }
+//   else{
+//     req.flash("success", "User Registered Successfully!")
+//   }
+//   res.redirect("/hello")
+// })
+
+// app.get("/hello", (req, res) =>{
+//   res.locals.successMSG = req.flash("success")
+//   res.locals.errorMSG = req.flash("error")
+//   res.render("profile.ejs", {name: req.session.name})
+// })
 
 //all listings routes
 app.use("/listings", router)
 app.use("/listings/:id/reviews", reviewsRouter)
-
 
 //for all the routs handle error
 app.all("*", (req, res, next) =>{

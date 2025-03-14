@@ -13,9 +13,21 @@
 <body>
     <%- include('./includes/navbar.ejs') %>
         <main style="padding: 70px 5% 5%;">
-            <%- body -%>
+            <%- include('./includes/flash.ejs') %>
+                <%- body -%>
         </main>
-    <%- include('./includes/footer.ejs') %>   
+        <%- include('./includes/footer.ejs') %>
+
+            <script>
+                // JavaScript to handle the close button functionality
+                const closeButton = document.querySelector('#close-btn');
+                const alertBox = document.querySelector('#alert-box');
+
+                // Add event listener to the close button
+                closeButton.addEventListener('click', () => {
+                    alertBox.classList.add('hidden'); // Adds the 'hidden' class to hide the alert
+                });
+            </script>
 </body>
 
 </html>

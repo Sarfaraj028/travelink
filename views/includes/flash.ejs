@@ -1,0 +1,28 @@
+<% if(successMSG && successMSG.length) { %>
+<div id="alert-box" class="fixed top-16 right-2 max-w-lg w-full p-4 bg-green-600 text-white rounded-lg shadow-lg flex items-center space-x-4">
+    <div class="flex-1">
+      <p id="alert-message"><%= successMSG %></p>
+    </div>
+    <button id="close-btn" class="text-white hover:text-gray-200 focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <% } %>
+
+  <!-- error  -->
+  <% if(errorMSG && errorMSG.length) { %>
+    <div id="alert-box" class="fixed top-16 right-2 max-w-lg w-full p-4 bg-red-600 text-white rounded-lg shadow-lg flex items-center space-x-4">
+        <div class="flex-1">
+          <p id="alert-message"><%= errorMSG %></p>
+        </div>
+        <button id="close-btn" class="text-white hover:text-gray-200 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    
+      <% } %>

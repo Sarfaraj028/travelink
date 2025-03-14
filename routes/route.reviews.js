@@ -12,7 +12,7 @@ reviewsRouter.delete("/:reviewId", wrapAsync( async(req, res) =>{
   
     await Review.findByIdAndDelete(reviewId)
     await Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}})
-  
+    req.flash("success", "Review deleted successfully!")
     res.redirect(`/listings/${id}`)
   }))
   
@@ -21,14 +21,14 @@ reviewsRouter.delete("/:reviewId", wrapAsync( async(req, res) =>{
     let {id} = req.params
     let listing = await Listing.findById(req.params.id)
     let newReview = new Review(req.body.review)
-  
     listing.reviews.push(newReview)
   
     await newReview.save()
     await listing.save()
-    res.redirect(`/listings/${id}`)
     console.log("Review Submitted", newReview);
     console.log(listing._id);
+    req.flash("success", "New Review added!")
+    res.redirect(`/listings/${id}`)
     
   })
 

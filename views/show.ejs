@@ -14,13 +14,15 @@
                     <p class="text-gray-600 my-4">
                         <%=data.description %>
                     </p>
-                    <button><a href="/listings/<%=data._id %>/edit"
-                            class="px-4 py-1 bg-green-500 text-white font-semibold rounded-md ">Edit
-                            Listing</a></button>
-                    <form method="post" action="/listings/<%=data._id%>?_method=DELETE" class="relative">
-                        <button
-                            class="px-4 py-1 bg-red-500 text-white font-semibold rounded-md absolute right-0 bottom-[-5px]">delete</button>
-                    </form>
+                    <div class="flex justify-between">
+                        <button>
+                            <a href="/listings/<%=data._id %>/edit" class="px-4 py-1 bg-green-500 text-white font-semibold rounded-md ">Edit Listing</a>
+                        </button>
+                        <form method="post" action="/listings/<%=data._id%>?_method=DELETE" class="relative">
+                            <button class="px-4 py-1 bg-red-500 text-white font-semibold rounded-md">delete</button>
+                        </form>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -44,22 +46,23 @@
         <div class="flex justify-center bg-green-100">
 
             <!-- reviews  -->
-        <div class="">
-            <h2 class="font-semibold mb-2">All Reviews: </h2>
-            <ul class="grid grid-cols-2 gap-2">
-                <% for(review of data.reviews) { %>
-                    <li class="bg-gray-200 p-2">
-                        <%= review.comment %> , <%= review.rating %> stars
-                        <form method="post" action="/listings/<%=data._id%>/reviews/<%=review._id%>?_method=DELETE">
-                            <button class="mt-2 py-1 px-2 rounded-md bg-black text-white">
-                                Delete
-                            </button>
-                        </form>
-                    </li>
-                <% } %>
-                
-            </ul>
-            
+            <div class="">
+                <h2 class="font-semibold mb-2">All Reviews: </h2>
+                <ul class="grid grid-cols-2 gap-2">
+                    <% for(review of data.reviews) { %>
+                        <li class="bg-gray-200 p-2">
+                            <%= review.comment %> , <%= review.rating %> stars
+                                    <form method="post"
+                                        action="/listings/<%=data._id%>/reviews/<%=review._id%>?_method=DELETE">
+                                        <button class="mt-2 py-1 px-2 rounded-md bg-black text-white">
+                                            Delete
+                                        </button>
+                                    </form>
+                        </li>
+                        <% } %>
+
+                </ul>
+
+            </div>
         </div>
-    </div>
     </body>
