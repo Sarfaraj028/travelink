@@ -6,13 +6,15 @@ import ejsMate from "ejs-mate"
 import CustomError from "./utils/CustomError.js";
 import router from "./routes/route.listings.js";
 import reviewsRouter from "./routes/route.reviews.js";
-import cookieParser from "cookie-parser";
+// import cookieParser from "cookie-parser";
 import session from "express-session";
+import flash from "connect-flash";
 
 
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
+
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -25,6 +27,8 @@ app.get("/", (req, res) => {
   res.send("Home page");
 });
 
+app.use(flash())
+
 //session example
 app.use(session({
   secret: "express_secret",
@@ -34,14 +38,14 @@ app.use(session({
 
 app.get("/register", (req, res) =>{
   let {name = "Sarfaraj"} = req.query
-  console.log(name);
   req.session.name = name;
-  res.send(`hello ${name}`)
+  req.flash("success", "User Registered Successfully!")
+  res.redirect("/hello")
 })
 
 app.get("/hello", (req, res) =>{
   console.log(req.session.name);
-  res.send(`hello ${req.session.name}`)
+  res.render("profile.ejs", {name: req.session.name, msg: req.flash("success")})
 })
 
 //all listings routes
