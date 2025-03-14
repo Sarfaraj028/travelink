@@ -6,10 +6,14 @@ import ejsMate from "ejs-mate"
 import CustomError from "./utils/CustomError.js";
 import router from "./routes/route.listings.js";
 import reviewsRouter from "./routes/route.reviews.js";
+import cookieParser from "cookie-parser";
+
 
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
+app.use(cookieParser("secretcode"))
+
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"))
@@ -20,6 +24,17 @@ app.use(express.static("public"))
 app.get("/", (req, res) => {
   res.send("Home page");
 });
+
+//cookie example
+app.get("/verify", (req, res) =>{
+  console.log(req.signedCookies)
+  res.send(`Got the signedCookie`)
+})
+
+app.get("/getcookies", (req, res) =>{
+  res.cookie("name", "Sarfaraj" , {signed: true})
+  res.send(`cookie sent`)
+})
 
 //all listings routes
 app.use("/listings", router)
