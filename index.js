@@ -9,6 +9,9 @@ import reviewsRouter from "./routes/route.reviews.js";
 // import cookieParser from "cookie-parser";
 import session from "express-session";
 import flash from "connect-flash";
+import passport from "passport";
+import LocalStrategy from 'passport-local'
+import User from "./models/user.model.js";
 
 
 dotenv.config();
@@ -35,6 +38,17 @@ app.use(session({
     httpOnly: true
   }
 }))
+
+//passport 
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+
+// store user data into the session 
+passport.serializeUser(User.serializeUser())
+// unstore user data from the session
+passport.deserializeUser(User.deserializeUser())
+
 
 //Home page
 app.get("/", (req, res) => {
@@ -65,6 +79,17 @@ app.use((req, res, next) =>{
 //   res.locals.errorMSG = req.flash("error")
 //   res.render("profile.ejs", {name: req.session.name})
 // })
+
+app.get("/demouser", async (req, res) =>{
+  let fakeUser = new User({
+    email: "saif123@gmail.com",
+    username: "saif-delta",
+  })
+  const newUser = await User.register(fakeUser, "saifbhai")
+  console.log(newUser);
+  res.send(newUser)
+  
+})
 
 //all listings routes
 app.use("/listings", router)
