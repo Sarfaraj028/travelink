@@ -37,15 +37,21 @@ app.use(session({
 }))
 
 app.get("/register", (req, res) =>{
-  let {name = "Sarfaraj"} = req.query
+  let {name = ''} = req.query
   req.session.name = name;
-  req.flash("success", "User Registered Successfully!")
+  if(name === ''){
+    req.flash("error", "Error while Registering!")
+  }
+  else{
+    req.flash("success", "User Registered Successfully!")
+  }
   res.redirect("/hello")
 })
 
 app.get("/hello", (req, res) =>{
-  console.log(req.session.name);
-  res.render("profile.ejs", {name: req.session.name, msg: req.flash("success")})
+  res.locals.successMSG = req.flash("success")
+  res.locals.errorMSG = req.flash("error")
+  res.render("profile.ejs", {name: req.session.name})
 })
 
 //all listings routes
