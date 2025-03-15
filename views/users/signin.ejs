@@ -1,0 +1,9 @@
+<% layout('boilerplate') %>
+    <main class="w-full h-[80vh] flex flex-col justify-center items-center">
+    <h2 class="text-3xl font-bold text-blue-900 mt-4 ">Sign In</h2>
+    <form class="w-96 bg-gray-400 p-5 mt-4" method="post" action="/user/signin">
+        <input required class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="text" name="username" placeholder="Enter your username" /> <br>
+        <input required class="w-full bg-gray-300 p-2 rounded-lg mb-2" type="password" name="password" placeholder="............" /> <br>
+        <button class="bg-green-500 px-6 py-2 font-bold rounded-lg">Sign In</button>
+    </form>
+</main>

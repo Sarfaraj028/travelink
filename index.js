@@ -12,7 +12,7 @@ import flash from "connect-flash";
 import passport from "passport";
 import LocalStrategy from 'passport-local'
 import User from "./models/user.model.js";
-
+import userRouter from "./routes/user.route.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -29,7 +29,7 @@ app.use(flash())
 
 //session example
 app.use(session({
-  secret: "express_secret",
+  secret: process.env.MYSECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -91,9 +91,11 @@ app.get("/demouser", async (req, res) =>{
   
 })
 
+
 //all listings routes
 app.use("/listings", router)
 app.use("/listings/:id/reviews", reviewsRouter)
+app.use("/user", userRouter)
 
 //for all the routs handle error
 app.all("*", (req, res, next) =>{
