@@ -7,7 +7,7 @@ const reviewsRouter = Router({mergeParams: true})
 
 
 //delete review
-reviewsRouter.delete("/:reviewId", wrapAsync( async(req, res) =>{
+reviewsRouter.delete("/:reviewId",  wrapAsync( async(req, res) =>{
     let {id, reviewId} = req.params
   
     await Review.findByIdAndDelete(reviewId)

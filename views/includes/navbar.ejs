@@ -1,7 +1,7 @@
 
-<nav class="nav bg-gray-50 dark:bg-gray-700 w-full ">
+<nav class="nav bg-gray-100 dark:bg-gray-700 w-full ">
     <div class="max-w-screen-xl px-4 py-3 mx-auto">
-        <div class="flex items-center">
+        <div class="flex justify-between items-center">
             <ul class="flex flex-row font-medium justify-center items-center mt-0 space-x-8 rtl:space-x-reverse text-sm">
                 <li class="flex justify-center items-center">
                     <i class="ri-compass-3-line text-4xl text-blue-600"></i> <span class="text-2xl text-blue-500 font-bold"> TraveLink </span>
@@ -18,6 +18,16 @@
                 <li>
                     <a href="#" class="text-gray-900 dark:text-white hover:underline">Contact</a>
                 </li>
+            </ul>
+            <!-- for log in and sign up  -->
+            <ul class="">
+                <% if (!currentUser) { %>
+                    <a href="/user/signup" class="p-2 hover:bg-black hover:text-white">Sign Up</a>
+                    <a href="/user/signin" class="p-2 hover:bg-black hover:text-white">Sign In</a>
+                <% } %>
+                <% if (currentUser) { %>
+                    <a href="/user/logout" class="p-2 hover:bg-black hover:text-white">Logout</a>
+                <% } %>
             </ul>
         </div>
     </div>

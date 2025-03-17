@@ -2,6 +2,7 @@ import { Router } from "express";
 import wrapAsync from "../utils/wrapAsync.js";
 import Listing from "../models/listing.model.js";
 import Review from "../models/review.model.js";
+import { isLogedIn } from "../middleware/isLogedIn.js";
 
 const router = Router();
 
@@ -16,13 +17,14 @@ router.get(
 );
 
 // take data to add new place (new/route)
-router.get("/new", (req, res) => {
+router.get("/new", isLogedIn,(req, res) => {
   res.render("new.ejs");
 });
 
 //add place to the listings
 router.post(
-  "",
+  "/",
+  isLogedIn,
   wrapAsync(async (req, res, next) => {
     const { title, description, price, location, country, image } = req.body;
     const newListing = new Listing({
@@ -59,6 +61,7 @@ router.get(
 //get listing to edit
 router.get(
   "/:id/edit",
+  isLogedIn,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     console.log(id);
@@ -90,6 +93,7 @@ router.patch(
 // delete listing
 router.delete(
   "/:id",
+  isLogedIn,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndDelete(id, { ...req.body.listing });

@@ -59,6 +59,7 @@ app.get("/", (req, res) => {
 app.use((req, res, next) =>{
   res.locals.successMSG = req.flash("success")
   res.locals.errorMSG = req.flash("error")
+  res.locals.currentUser = req.user
   next()
 })
 
@@ -103,12 +104,16 @@ app.all("*", (req, res, next) =>{
 })
 
 // middleware 
-app.use((err, req, res, next) =>{
-  let {status= 500, message ="Something went wrong?" } = err;
-  console.error("Something went wrong!");
-  res.render("error.ejs", {message, status})
-  // res.status(status).send(message)
-})
+app.use((err, req, res, next) => {
+  // Destructure error properties with default values
+  const { status = 500, message = "Something went wrong!" } = err;
+
+  // Log the error message (optional, you can include more details)
+  console.error(`Error occurred: ${message}`, err);
+
+  // Set the status and render the error page
+  res.status(status).render("error.ejs", { message, status });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
