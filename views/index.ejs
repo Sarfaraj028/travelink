@@ -11,6 +11,7 @@
                     </a>
                     <div class=" p-3">
                         <h3><a href="/listings/<%=data._id %>" class="text-lg font-semibold">
+                            <p class="mb-1  text-sm font-semibold"> <i class="text-gray-600"> Owned By: <%= data.owner.username %> </i></p>
                                 <%=data.title %>
                             </a> |<span class="text-blue-800 font-semibold"> &#8377;<%=data.price.toLocaleString('en-IN') %></span> </h3>
                         <h3>Location: <%=data.location %> | Country: <%=data.country %>

@@ -1,8 +1,8 @@
 import { Router } from "express";
 import wrapAsync from "../utils/wrapAsync.js";
 import Listing from "../models/listing.model.js";
-import Review from "../models/review.model.js";
 import { isLogedIn } from "../middleware/isLogedIn.js";
+import isOwner from "../middleware/isOwner.js";
 
 const router = Router();
 
@@ -10,7 +10,7 @@ const router = Router();
 router.get(
   "/",
   wrapAsync(async (req, res) => {
-    const data = await Listing.find();
+    const data = await Listing.find().populate("owner");
     console.log("api is live");
     res.render("index.ejs", { data });
   })
@@ -35,8 +35,11 @@ router.post(
       country: country,
       image: image,
     });
+    console.log(req.user);
+    
+    newListing.owner = req.user._id
     const savedListing = await newListing.save();
-    console.log("saved : ", savedListing);
+    console.log("saved : ", savedListing,);
     req.flash("success", "New Listing added!");
     res.redirect("/listings");
   })
@@ -47,11 +50,12 @@ router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const data = await Listing.findById(id).populate("reviews");
+    const data = await Listing.findById(id).populate("reviews").populate("owner");
     if (!data) {
       req.flash("error", "The data you requested for not exist!");
       res.redirect("/listings");
     } else {
+
       console.log("data fetched", data.title);
       res.render("show.ejs", { data });
     }
@@ -62,6 +66,7 @@ router.get(
 router.get(
   "/:id/edit",
   isLogedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     console.log(id);
@@ -81,6 +86,8 @@ router.get(
 // update listing
 router.patch(
   "/:id",
+  isLogedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -94,6 +101,7 @@ router.patch(
 router.delete(
   "/:id",
   isLogedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndDelete(id, { ...req.body.listing });
