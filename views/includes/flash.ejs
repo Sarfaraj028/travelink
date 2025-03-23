@@ -1,5 +1,5 @@
 <% if(successMSG && successMSG.length) { %>
-<div id="alert-box" class="fixed top-16 right-2 max-w-lg w-full p-4 bg-green-600 text-white rounded-lg shadow-lg flex items-center space-x-4">
+<div id="alert-box" class="z-5 fixed top-16 right-2 max-w-lg w-full p-4 bg-green-600 text-white rounded-lg shadow-lg flex items-center space-x-4">
     <div class="flex-1">
       <p id="alert-message"><%= successMSG %></p>
     </div>
@@ -14,7 +14,7 @@
 
   <!-- error  -->
   <% if(errorMSG && errorMSG.length) { %>
-    <div id="alert-box" class="fixed top-16 right-2 max-w-lg w-full p-4 bg-red-600 text-white rounded-lg shadow-lg flex items-center space-x-4">
+    <div id="alert-box" class="z-10 fixed top-16 right-2 max-w-lg w-full p-4 bg-red-600 text-white rounded-lg shadow-lg flex items-center space-x-4">
         <div class="flex-1">
           <p id="alert-message"><%= errorMSG %></p>
         </div>

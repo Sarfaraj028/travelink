@@ -50,7 +50,13 @@ router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const data = await Listing.findById(id).populate("reviews").populate("owner");
+    const data = await Listing.findById(id)
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "author",
+      },
+    }).populate("owner");
     if (!data) {
       req.flash("error", "The data you requested for not exist!");
       res.redirect("/listings");
